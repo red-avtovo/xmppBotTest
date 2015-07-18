@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:int-xmpp="http://www.springframework.org/schema/integration/xmpp"
+             xmlns="http://www.springframework.org/schema/integration"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/integration/xmpp http://www.springframework.org/schema/integration/xmpp/spring-integration-xmpp.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="com.j0rsa.xmpp.bot"/>
+
+    <context:property-placeholder location="classpath:xmpp.properties"/>
+
+
+    <int-xmpp:xmpp-connection id="googleTalkConnection"
+                              user="${user.login}"
+                              password="${user.password}"
+                              host="${user.host}"
+                              service-name="${user.service}"
+                              port="${user.port}"/>
+    <int-xmpp:inbound-channel-adapter
+            auto-startup="true"
+            xmpp-connection="googleTalkConnection"
+            channel="incomingMessagesChannel"/>
+    <channel id="incomingMessagesChannel"/>
+    <service-activator
+            ref="botService"
+            method="answer"
+            input-channel="incomingMessagesChannel"
+            output-channel="outcomingMessagesChannel"/>
+
+    <channel id="outcomingMessagesChannel"/>
+</beans:beans>
