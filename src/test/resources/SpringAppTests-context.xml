@@ -4,11 +4,11 @@
        xmlns="http://www.springframework.org/schema/integration"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-       <beans:import resource="../../../../../../main/resources/spring-config.xml"/>
+       <beans:import resource="file:src/main/resources/spring-config.xml"/>
 
        <bridge input-channel="outcomingMessagesChannel" output-channel="testQueueChannel"/>
 
        <channel id="testQueueChannel">
-              <queue capacity="2"/>
+              <queue/>
        </channel>
 </beans:beans>

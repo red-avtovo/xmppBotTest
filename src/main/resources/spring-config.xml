@@ -29,4 +29,5 @@
             output-channel="outcomingMessagesChannel"/>
 
     <channel id="outcomingMessagesChannel"/>
+
 </beans:beans>

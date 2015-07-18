@@ -37,7 +37,7 @@ public class BotService{
         String from = (String) headers.get("xmpp_from");
         String payload = (String) message.getPayload();
 
-        if (from.startsWith(selfLogin)) {
+        if (from != null && from.startsWith(selfLogin)) {
             return null;
         }
         logger.info("Received a message from: {} with payload: {}", from, payload);

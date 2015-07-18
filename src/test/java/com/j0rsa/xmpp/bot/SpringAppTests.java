@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
+@ContextConfiguration("classpath:SpringAppTests-context.xml")
 public class SpringAppTests {
 
     @Autowired
@@ -26,6 +26,6 @@ public class SpringAppTests {
         String text = "test message";
         Message<String> message = MessageBuilder.withPayload(text).build();
         incomingMessagesChannel.send(message);
-        Assert.assertEquals(text, testChannel.receive().getPayload());
+        Assert.assertEquals("Received: " + text, testQueueChannel.receive().getPayload());
     }
 }
